@@ -4,3 +4,5 @@ services:
     build:
       context: .
       dockerfile: Notify/Dockerfile
+    environment:
+      - TZ=Asia/Jakarta

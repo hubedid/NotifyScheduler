@@ -29,7 +29,8 @@ public class TugasRepository : ITugasRepository
                 KategoriId = tuga.ID_Kategori,
                 LabelId = tuga.ID_label,
                 Email = tuga.Email,
-                Username = tuga.Username
+                Username = tuga.Username,
+                JobKey = tuga.job_key
             });
         }
 
@@ -59,7 +60,20 @@ public class TugasRepository : ITugasRepository
             KategoriId = tuga.ID_Kategori,
             LabelId = tuga.ID_label,
             Email = tuga.Email,
-            Username = tuga.Username
+            Username = tuga.Username,
+            JobKey = tuga.job_key
         };
+    }
+
+    public int SetJobKeyByTugasId(string tugasId, string jobKey)
+    {
+        int affected = _db.Query("tugas")
+            .Where("ID_Tugas", tugasId)
+            .Update(new
+            {
+                job_key = jobKey
+            });
+
+        return affected;
     }
 }

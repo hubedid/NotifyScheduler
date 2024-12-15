@@ -12,4 +12,5 @@ public class TugasModel
     public string LabelId { get; set; }
     public string Email { get; set; }
     public string Username { get; set; }
+    public string JobKey { get; set; }
 }

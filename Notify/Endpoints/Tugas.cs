@@ -56,6 +56,15 @@ public class Tugas
        return schedule;
     }
 
+    public async Task<dynamic> GetJobTriggers(string tugasId)
+    {
+        TugasModel tugas = _tugasRepository.GetTugasById(tugasId);
+
+        dynamic schedule = await _scheduler.ListTriggersByJobKey(tugas.JobKey);
+
+        return schedule;
+    }
+
 }
 
 

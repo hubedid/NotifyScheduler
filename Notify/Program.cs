@@ -59,6 +59,10 @@ app.MapGet("/tugas/{tugasId}", (string tugasId, Tugas handler) => handler.GetTug
     .WithName("GetTugasById")
     .WithOpenApi();
 
+app.MapGet("/tugas/{tugasId}/triggers", (string tugasId, Tugas handler) => handler.GetJobTriggers(tugasId))
+    .WithName("GetJobTriggers")
+    .WithOpenApi();
+
 app.MapPost("/tugas/{tugasId}/callback", (string tugasId, Tugas handler) => handler.TugasCallback(tugasId))
     .WithName("TugasCallback")
     .WithOpenApi();

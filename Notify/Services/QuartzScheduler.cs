@@ -1,4 +1,5 @@
-﻿using Notify.Repository.Tugas;
+﻿using Notify.Endpoints;
+using Notify.Repository.Tugas;
 using Quartz;
 using Quartz.Impl.Matchers;
 
@@ -25,8 +26,9 @@ public class QuartzScheduler
 
         foreach (TugasModel schedule in schedules)
         {
+            string jobKey = $"job-{schedule.Email}-{Guid.NewGuid()}";
             IJobDetail job = JobBuilder.Create<ReminderJob>()
-                .WithIdentity($"job-{Guid.NewGuid()}")
+                .WithIdentity(jobKey)
                 .StoreDurably()
                 .UsingJobData("Username", schedule.Username) 
                 .UsingJobData("Email", schedule.Email)
@@ -63,6 +65,8 @@ public class QuartzScheduler
             {
                 await _scheduler.ScheduleJob(trigger);
             }
+
+            _tugasRepository.SetJobKeyByTugasId(schedule.TugasId, jobKey);
         }
     }
 
@@ -112,6 +116,8 @@ public class QuartzScheduler
         {
             await _scheduler.ScheduleJob(trigger);
         }
+
+        _tugasRepository.SetJobKeyByTugasId(tugasId, jobKey);
 
         return jobKey;
     }

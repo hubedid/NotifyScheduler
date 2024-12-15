@@ -15,8 +15,10 @@ public class ReminderJob : IJob
     }
     public async Task Execute(IJobExecutionContext context)
     {
+
         JobDataMap jobData = context.JobDetail.JobDataMap;
         string? username = jobData.GetString("Username");
+        _logger.LogInformation($"exec job: {username}");
         string? email = jobData.GetString("Email");
         string? judul = jobData.GetString("Judul");
         string? deskripsi = jobData.GetString("Deskripsi");

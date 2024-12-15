@@ -1,0 +1,6 @@
+services:
+  notify:
+    image: ${DOCKER_REGISTRY-}notify
+    build:
+      context: .
+      dockerfile: Notify/Dockerfile
